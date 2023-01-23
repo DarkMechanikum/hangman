@@ -1,0 +1,63 @@
+import random
+menu = ["play", "results", "exit"]
+wins = 0
+losses = 0
+print("H A N G M A N\n")
+print('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+option = input()
+while option != exit:
+    if option == "play":
+        
+        words = ["python", "java", "swift", "javascript"]
+        rand = random.randint(0,len(words)-1)
+        task = words[rand]
+        word = []
+        inpts = set()
+        alphabet = "abcdefghijklmnopqrstuvwqxyz"
+        for i in range(0, len(task)):
+            word.append("-")
+        attempts = 8
+        
+        while(attempts > 0):
+            word_word = ""
+            for i in word:
+                word_word += i
+            if(word_word == task):
+                break
+            print(word_word)
+            inp = input("Input a letter: ")
+            if len(inp) != 1:
+                print("Please, input a single letter.")
+                continue
+            if inp not in alphabet:
+                print("Please, enter a lowercase letter from the English alphabet.")
+                continue
+            if inp in inpts:
+                print("You've already guessed this letter.")
+                continue
+            inpts.add(inp)
+            if inp in task:
+                if inp not in word:
+                    for i in range(0, len(task)):
+                        if task[i] == inp:
+                            word[i] = inp
+                else:
+                    attempts -= 1
+                    print("No improvements.")
+            else:
+                print("That letter doesn't appear in the word.")
+                attempts -= 1
+        if word_word == task:
+            print("You guessed the word {}!".format(word_word))
+            print("You survived!")
+            wins += 1
+        else:
+            losses += 1
+            print("You lost!")
+    elif option == "results":
+        print("You won: {0} times".format(wins))
+        print("You lost: {0} times".format(losses))
+    else:
+        break
+    print('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+    option = input()
